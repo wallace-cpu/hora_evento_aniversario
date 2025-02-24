@@ -1,36 +1,27 @@
 AOS.init();
 
 const dataDoEvento = new Date("Set 02, 2025 19:00:00");
-const timeStempDoEvento = dataDoEvento.getTime();
+const timeStampDoEvento = dataDoEvento.getTime();
 
 const contaAsHoras = setInterval(function() {
-    const agora = new Date("");
-    const timeStempDoAtual = agora.getTime();
+    const agora = new Date();
+    const timeStampAtual = agora.getTime();
 
-    const distanciaAteEvento = timeStempDoEvento - timeStempDoAtual;
+    const distanciaAteOEvento = timeStampDoEvento - timeStampAtual;
 
-    const diasEmMs = 1000 * 60 * 60 * 24;
+    const diaEmMs = 1000 * 60 * 60 * 24;
+    const horaEmMs = 1000 * 60 * 60;
+    const minutoEmMs = 1000 * 60;
 
-    const horasEmMs = 1000 * 60 * 60 ;
+    const diasAteOEvento = Math.floor(distanciaAteOEvento / diaEmMs);
+    const horasAteOEvento = Math.floor((distanciaAteOEvento % diaEmMs) / horaEmMs);
+    const minutosAteOEvento = Math.floor((distanciaAteOEvento % horaEmMs) / minutoEmMs);
+    const segundosAteOEvento = Math.floor((distanciaAteOEvento % minutoEmMs) / 1000);
 
-    const minutosEmMs = 1000 * 60;
+    document.getElementById('contador').innerHTML = `${diasAteOEvento}d ${horasAteOEvento}h ${minutosAteOEvento}m ${segundosAteOEvento}s`;
 
-
-    const diasAteEvento = math.floor(distanciaAteEvento / (diasEmMs));
-
-    const horasAteoEvento = math.floor(distanciaAteEvento / (diasEmMs)) / (horasEmMs);
-
-    const minutosAteEvento = math.floor(distanciaAteEvento % (horasEmMs)) / (minutosEmMs);
-
-    const segundosAteEvento = Math.floor((distanciaAteEvento % minutoEmMs) / 1000);
-
-    document.getElementById('contador').innerHTML = `${diasAteEvento}d ${horasAteoEvento}h ${minutosAteEvento}m ${segundosAteEvento}s`;
-
-    if (distanciaAteEvento < 0) {
+    if (distanciaAteOEvento < 0) {
         clearInterval(contaAsHoras);
         document.getElementById('contador').innerHTML = 'Evento expirado';
     }
-
-
 }, 1000);
-
